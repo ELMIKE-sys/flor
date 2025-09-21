@@ -14,38 +14,21 @@
       color: white;
     }
 
-    /* Flor */
+    /* Flor genérica */
     .flor {
       position: absolute;
-      width: 120px;
-      height: 120px;
-      animation: girar 8s linear infinite;
+      animation: girar linear infinite;
     }
 
     .petalo {
       position: absolute;
-      width: 60px;
-      height: 60px;
-      background: yellow;
       border-radius: 50% 50% 0 50%;
-      transform-origin: bottom right;
       box-shadow: 0 0 15px rgba(255, 255, 0, 0.6);
     }
 
-    .petalo:nth-child(1) { transform: rotate(0deg) translate(0, -40px); }
-    .petalo:nth-child(2) { transform: rotate(72deg) translate(0, -40px); }
-    .petalo:nth-child(3) { transform: rotate(144deg) translate(0, -40px); }
-    .petalo:nth-child(4) { transform: rotate(216deg) translate(0, -40px); }
-    .petalo:nth-child(5) { transform: rotate(288deg) translate(0, -40px); }
-
     .centro {
       position: absolute;
-      width: 50px;
-      height: 50px;
-      background: orange;
       border-radius: 50%;
-      top: 35px;
-      left: 35px;
       box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
     }
 
@@ -154,49 +137,12 @@
 </head>
 <body>
 
-  <!-- Varias flores amarillas -->
-  <div class="flor" style="top: 50%; left: 50%;">
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="centro"></div>
-  </div>
-
-  <div class="flor" style="top: 20%; left: 20%; animation-duration: 6s;">
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="centro"></div>
-  </div>
-
-  <div class="flor" style="top: 70%; left: 80%; animation-duration: 10s;">
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="centro"></div>
-  </div>
-
-  <div class="flor" style="top: 30%; left: 75%; animation-duration: 7s;">
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="petalo"></div>
-    <div class="centro"></div>
-  </div>
-
   <!-- Frases -->
-  <div class="frase" style="left: 10%; animation-delay: 0s;">🌼 Siempre sonrie 🌼</div>
-  <div class="frase" style="left: 50%; animation-delay: 3s;">🌟 Tu sonrisa ilumina el dia de las personas✨</div>
+  <div class="frase" style="left: 10%; animation-delay: 0s;">🌼 Siempre sonríe 🌼</div>
+  <div class="frase" style="left: 50%; animation-delay: 3s;">🌟 Tu sonrisa ilumina el día ✨</div>
   <div class="frase" style="left: 30%; animation-delay: 6s;">💫 Eres una buena amiga 🌙</div>
   <div class="frase" style="left: 70%; animation-delay: 9s;">🏡 Disfruta de la vida ❤️</div>
-  <div class="frase" style="left: 20%; animation-delay: 12s;">😊 Baila la cancion hasta abajo 😊</div>
+  <div class="frase" style="left: 20%; animation-delay: 12s;">😊 Baila la canción hasta abajo 😊</div>
 
   <!-- Estrellas -->
   <script>
@@ -207,6 +153,51 @@
       estrella.style.left = Math.random() * 100 + "vw";
       estrella.style.animationDuration = (Math.random() * 3 + 2) + "s";
       document.body.appendChild(estrella);
+    }
+  </script>
+
+  <!-- Flores generadas dinámicamente -->
+  <script>
+    function crearFlor(top, left, size, petaloCount) {
+      const flor = document.createElement("div");
+      flor.classList.add("flor");
+      flor.style.top = top + "vh";
+      flor.style.left = left + "vw";
+      flor.style.width = size + "px";
+      flor.style.height = size + "px";
+      flor.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+      const radioPetalo = size / 2;
+      for (let i = 0; i < petaloCount; i++) {
+        const petalo = document.createElement("div");
+        petalo.classList.add("petalo");
+        petalo.style.width = (radioPetalo) + "px";
+        petalo.style.height = (radioPetalo) + "px";
+        petalo.style.background = `hsl(${Math.random()*60+50}, 100%, 50%)`;
+        petalo.style.transform = `rotate(${i * (360/petaloCount)}deg) translate(0, -${radioPetalo/2}px)`;
+        flor.appendChild(petalo);
+      }
+
+      const centro = document.createElement("div");
+      centro.classList.add("centro");
+      centro.style.width = (radioPetalo) + "px";
+      centro.style.height = (radioPetalo) + "px";
+      centro.style.top = (radioPetalo/2) + "px";
+      centro.style.left = (radioPetalo/2) + "px";
+      centro.style.background = "orange";
+      flor.appendChild(centro);
+
+      document.body.appendChild(flor);
+    }
+
+    // Crear muchas flores de distintos tamaños y formas
+    for(let i=0; i<12; i++){
+      crearFlor(
+        Math.random()*90, // top %
+        Math.random()*90, // left %
+        50 + Math.random()*70, // tamaño
+        4 + Math.floor(Math.random()*4) // número de pétalos
+      );
     }
   </script>
 
@@ -235,9 +226,8 @@
     const current = document.getElementById("current");
     const duration = document.getElementById("duration");
 
-    // Autoplay fallback
     document.body.addEventListener("click", () => {
-      if (audio.paused) { audio.play(); }
+      if (audio.paused) audio.play();
     }, { once: true });
 
     btn.addEventListener("click", () => {
@@ -269,6 +259,8 @@
 
 </body>
 </html>
+
+
 
 
 
