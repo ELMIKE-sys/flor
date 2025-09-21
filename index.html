@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dedicatoria Animada</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle at center, #0d1b2a, #000);
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    /* Flor */
+    .flor {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      width: 120px;
+      height: 120px;
+      animation: girar 8s linear infinite;
+    }
+
+    .petalo {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: yellow;
+      border-radius: 50% 50% 0 50%;
+      transform-origin: bottom right;
+      box-shadow: 0 0 15px rgba(255, 255, 0, 0.6);
+    }
+
+    .petalo:nth-child(1) { transform: rotate(0deg) translate(0, -40px); }
+    .petalo:nth-child(2) { transform: rotate(72deg) translate(0, -40px); }
+    .petalo:nth-child(3) { transform: rotate(144deg) translate(0, -40px); }
+    .petalo:nth-child(4) { transform: rotate(216deg) translate(0, -40px); }
+    .petalo:nth-child(5) { transform: rotate(288deg) translate(0, -40px); }
+
+    .centro {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: orange;
+      border-radius: 50%;
+      top: 35px;
+      left: 35px;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    @keyframes girar {
+      0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+      50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.1); }
+      100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+    }
+
+    /* Frases flotantes */
+    .frase {
+      position: absolute;
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: rgba(200, 100, 255, 0.2);
+      border: 1px solid rgba(255, 200, 255, 0.5);
+      backdrop-filter: blur(5px);
+      white-space: nowrap;
+      font-size: 18px;
+      animation: flotar 15s linear infinite;
+    }
+
+    @keyframes flotar {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Estrellas */
+    .estrella {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: parpadeo 2s infinite alternate;
+    }
+
+    @keyframes parpadeo {
+      from { opacity: 0.2; }
+      to { opacity: 1; }
+    }
+
+    /* Reproductor */
+    .player {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(50, 0, 80, 0.7);
+      padding: 15px;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+      color: white;
+      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 300px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .player button {
+      background: red;
+      border: none;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      color: white;
+      font-size: 16px;
+    }
+
+    .progress-container {
+      margin-top: 10px;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff0080, #ff6a00);
+      transition: width 0.2s linear;
+    }
+
+    .time {
+      margin-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Flor amarilla -->
+  <div class="flor">
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="petalo"></div>
+    <div class="centro"></div>
+  </div>
+
+  <!-- Frases -->
+  <div class="frase" style="left: 10%; animation-delay: 0s;">🌼 Siempre sonrie 🌼</div>
+  <div class="frase" style="left: 50%; animation-delay: 3s;">🌟 Tu sonrisa ilumina el dia de las personas✨</div>
+  <div class="frase" style="left: 30%; animation-delay: 6s;">💫 Eres una buena amiga 🌙</div>
+  <div class="frase" style="left: 70%; animation-delay: 9s;">🏡 Disfruta de la vida ❤️</div>
+  <div class="frase" style="left: 20%; animation-delay: 12s;">😊 Baila la cancion hasta abajo 😊</div>
+
+  <!-- Estrellas -->
+  <script>
+    for (let i = 0; i < 50; i++) {
+      const estrella = document.createElement("div");
+      estrella.classList.add("estrella");
+      estrella.style.top = Math.random() * 100 + "vh";
+      estrella.style.left = Math.random() * 100 + "vw";
+      estrella.style.animationDuration = (Math.random() * 3 + 2) + "s";
+      document.body.appendChild(estrella);
+    }
+  </script>
+
+  <!-- Reproductor -->
+  <div class="player">
+    <div class="controls">
+      <button id="playPause">⏸</button>
+      <span>Te dedico esta canción mugres</span>
+    </div>
+    <div class="progress-container">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div class="time">
+      <span id="current">0:00</span>
+      <span id="duration">0:00</span>
+    </div>
+    <audio id="audio" autoplay>
+      <source src="C:\Users\vongo\OneDrive\Escritorio\Flores\Audio de WhatsApp 2025-09-20 a las 18.01.06_fc63c9dc.mp3" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    const audio = document.getElementById("audio");
+    const btn = document.getElementById("playPause");
+    const progress = document.getElementById("progress");
+    const current = document.getElementById("current");
+    const duration = document.getElementById("duration");
+
+    // Autoplay fallback
+    document.body.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+      }
+    }, { once: true });
+
+    btn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        btn.textContent = "⏸";
+      } else {
+        audio.pause();
+        btn.textContent = "▶️";
+      }
+    });
+
+    audio.addEventListener("loadedmetadata", () => {
+      duration.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      current.textContent = formatTime(audio.currentTime);
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = percent + "%";
+    });
+
+    function formatTime(seconds) {
+      const min = Math.floor(seconds / 60);
+      const sec = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${min}:${sec}`;
+    }
+  </script>
+</body>
+</html>
+
